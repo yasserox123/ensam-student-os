@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="fr" xmlns="http://www.w3.org/1999/xhtml"><head>
+                <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+                <meta name="robots" content="noindex, nofollow">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+                <meta name="apple-mobile-web-app-capable" content="yes"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/theme.css?ln=primefaces-olympos"><script type="text/javascript" src="/faces/javax.faces.resource/jquery/jquery.js?ln=primefaces&amp;v=5.3.17"></script><script type="text/javascript" src="/faces/javax.faces.resource/jsf.js?ln=javax.faces"></script><script type="text/javascript" src="/faces/javax.faces.resource/primefaces.js?ln=primefaces&amp;v=5.3.17"></script><script type="text/javascript" src="/faces/javax.faces.resource/javascript/traductions.js"></script><script type="text/javascript" src="/faces/javax.faces.resource/js/nanoscroller.js?ln=olympos-layout"></script><script type="text/javascript" src="/faces/javax.faces.resource/js/layout.js?ln=olympos-layout"></script><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/primefaces.css?ln=primefaces&amp;v=5.3.17"><script type="text/javascript" src="/faces/javax.faces.resource/jquery/jquery-plugins.js?ln=primefaces&amp;v=5.3.17"></script><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/main.css"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/custom/stylesheet.css"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/css/core-layout.css?ln=olympos-layout"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/css/animate.css?ln=olympos-layout"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/css/nanoscroller.css?ln=olympos-layout"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/css/olympos-font.css?ln=olympos-layout"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/css/all.css?ln=olympos-layout"><link type="text/css" rel="stylesheet" href="/faces/javax.faces.resource/css/olympos-layout.css?ln=olympos-layout"><link type="text/css" rel="stylesheet" href="RES_NOT_FOUND"><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='fr';}</script>
+            <title>Page de connexion
+            </title><script type="text/javascript" src="/faces/javax.faces.resource/javascript/aurion.js"></script>
+                <script type="text/javascript">
+                    logoutSessionSaiku('https://lise.ensam.eu/saiku');
+                </script>
+            
+            <style type="text/css">.ui-button-text, .ui-button-text-only .ui-button-text { padding: 15px !important; transition: none !important; }</style></head><body class="templateSimple AquaBack"><div><div id="j_idt18" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container ui-draggable ui-resizable" role="dialog" aria-labelledby="j_idt18_title" aria-hidden="true" style="width: 300px; height: auto;"><div class="ui-dialog-content ui-widget-content" style="height: 100px;">
+                <div class="MarAuto TexAlCenter Fs21"><img src="/faces/javax.faces.resource/connect_active.gif"><br>
+                    Chargement en cours.<br>
+                    Merci de patienter.
+                </div></div><div class="ui-resizable-handle ui-resizable-n" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-e" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-w" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-ne" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-nw" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-se ui-icon ui-icon-gripsmall-diagonal-se" style="z-index: 90;"></div><div class="ui-resizable-handle ui-resizable-sw" style="z-index: 90;"></div></div><div id="divCenter" class="loginPage">
+
+                    <div class="Wid70 MarAuto">
+                        <div class="Wid70 MarAuto WidAutoOnMobile TexAlCenter">
+
+                            <div class="Wid70 MarAuto WidAutoOnMobile">
+                                <div class="EmptyBox30"></div>
+
+                                
+                                <div class="Container100">
+                                    <div class="divLogo DispBlock MarAuto"></div>
+                                </div>
+
+                                <div class="EmptyBox30"></div>
+
+                                <div class="div-message-bienvenue Wid100 FontLatoRegular White Fs18">Bienvenue dans votre espace !</div>
+                                <div class="EmptyBox30"></div>
+
+                                <div class="Card ui-fluid ShadowEffect"><div id="j_idt24" class="ui-messages ui-widget" aria-live="polite"><div class="ui-messages-error ui-corner-all"><span class="ui-messages-error-icon"></span><ul><li><span class="ui-messages-error-summary">Login ou mot de passe invalide.</span></li></ul></div></div>
+
+                                    
+                                    <form id="formulaireSpring" method="post" action="/login" enctype="application/x-www-form-urlencoded">
+                                        <div class="Container100"><input id="username" name="username" type="text" placeholder="Identifiant" size="30" autofocus="autofocus" style="padding: 15px !important;" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all ui-state-focus" role="textbox" aria-disabled="false" aria-readonly="false">
+                                        </div>
+
+                                        <div class="Container100"><input id="password" name="password" type="password" class="ui-inputfield ui-password ui-widget ui-state-default ui-corner-all" style="padding: 15px !important;" autocomplete="off" placeholder="Mot de passe" size="30" role="textbox" aria-disabled="false" aria-readonly="false">
+                                        </div>
+
+                                        <div class="EmptyBox20"></div>
+
+                                        <div class="Container100"><button id="j_idt28" name="j_idt28" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only bouton-connexion GreenButton" onclick="return login_validerForm();PrimeFaces.ab({s:&quot;j_idt28&quot;});return false;" type="submit" role="button" aria-disabled="false"><span class="ui-button-text ui-c">Connexion</span></button>
+                                        </div>
+                                    </form>
+
+                                    <div class="EmptyBox10"></div>
+                                    <div class="Separator"></div>
+                                    <div class="EmptyBox10"></div>
+<form id="j_idt30" name="j_idt30" method="post" action="/faces/Login.xhtml" class="Container100 Responsive100" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt30" value="j_idt30" style="">
+<div><a id="j_idt30:j_idt32" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.ab({s:&quot;j_idt30:j_idt32&quot;});return false;"><img src="/faces/javax.faces.resource/agt_login.png" style="border: 0; float: left;">
+                                                <strong style="line-height: 33px; margin-left: 5px; font-size: 14px">Se connecter en utilisant le serveur d'authentification central
+                                                </strong></a>
+
+                                            <div class="EmptyBox10"></div>
+                                            <div class="Separator"></div>
+                                            <div class="EmptyBox10"></div></div>
+
+                                        <div class="liens Flex FlexWrap"><div class="Container50 Responsive100 Flex"><button id="j_idt30:j_idt47" name="j_idt30:j_idt47" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left bouton-recevoir-mot-de-passe NavyButton White" onclick="" type="submit" role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-c far fa-paper-plane Fs16"></span><span class="ui-button-text ui-c">Réinitialiser mon mot de passe</span></button></div><div class="Container50 Responsive100 Flex"><button id="j_idt30:j_idt49" name="j_idt30:j_idt49" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left bouton-acceder-info-sans-connexion White" onclick="" type="submit" role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-c far fa-eye Fs16"></span><span class="ui-button-text ui-c">Accéder aux informations sans se connecter</span></button></div><div class="Container50 Responsive100 Flex"><button id="j_idt30:j_idt54" name="j_idt30:j_idt54" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left bouton-sinscrire RedButton White" onclick="" type="submit" role="button" aria-disabled="false"><span class="ui-button-icon-left ui-icon ui-c fas fa-sign-in-alt Fs16"></span><span class="ui-button-text ui-c">Candidater à une formation</span></button></div>
+                                        </div><input type="hidden" name="javax.faces.ViewState" id="j_id1:javax.faces.ViewState:0" value="1310821177521733209:4204695507474686667" autocomplete="off" style="">
+</form>
+                                </div>
+
+                                <div class="EmptyBox30"></div>
+                            </div>
+                        </div>
+                    </div><h1 align="center">Afin de garantir un bon fonctionnement du portail web, veuillez utiliser une version récente de votre navigateur préféré</h1>
+<br><br>
+<h2 align="center">
+<b>Si vous possédez déjà un compte ENSAM</b>, votre login / mot de passe ENSAM sont à utiliser.
+<br>
+<b>Si vous être un primo-entrant ou Intervenant vacataire</b>, votre identifiant est votre email personnel et votre mot de passe est à demander (lien Recevoir mon mot de passe de connexion)<br>
+
+Une fois inscrit, vous receverez une notification d'activation de votre compte ENSAM. <br>
+Dès réception de la notification, votre identifiant/mot de passe est celui du compte ENSAM.
+</h2></div></div>
+<div id="textarea_simulator" style="position: absolute; top: 0px; left: 0px; visibility: hidden;"></div><div class="ui-dialog-docking-zone"></div></body></html>

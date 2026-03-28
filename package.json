@@ -1,0 +1,30 @@
+{
+  "name": "ensam-lise-scraper",
+  "version": "2.0.0",
+  "description": "Production-grade ENSAM LISE timetable scraper — Student Life OS",
+  "private": true,
+  "scripts": {
+    "start": "ts-node server.ts",
+    "test": "ts-node test.ts",
+    "test:debug": "cross-env ENSAM_DEBUG=1 ts-node test.ts",
+    "test:json": "cross-env ENSAM_LOG_JSON=1 ts-node test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:push": "prisma db push"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "express": "^5.2.1",
+    "playwright": "^1.44.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^20.0.0",
+    "cross-env": "^7.0.3",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}
