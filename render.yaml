@@ -2,8 +2,9 @@ services:
   - type: web
     name: ensam-student-os-api
     runtime: node
-    buildCommand: npm install && npx prisma generate && npm run build
+    buildCommand: npm install
     startCommand: npm start
+    preDeployCommand: npx prisma migrate deploy
     healthCheckPath: /health
     envVars:
       - key: NODE_ENV
@@ -13,21 +14,8 @@ services:
           name: ensam-db
           property: connectionString
       - key: CREDENTIALS_MASTER_KEY
-        generateValue: true
+        sync: false
     autoDeploy: true
-
-  - type: web
-    name: ensam-student-os-web
-    runtime: static
-    buildCommand: cd web && npm install && npm run build
-    staticPublishPath: web/dist
-    routes:
-      - type: rewrite
-        source: /api/*
-        destination: https://ensam-student-os-api.onrender.com/api/*
-    envVars:
-      - key: NEXT_PUBLIC_API_URL
-        value: https://ensam-student-os-api.onrender.com
 
 databases:
   - name: ensam-db
