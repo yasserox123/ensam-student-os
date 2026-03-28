@@ -1,28 +1,48 @@
 /**
  * Secure REST API for ENSAM LISE timetable sync.
- *
- * Endpoints:
- *   POST /api/credentials      - Store encrypted credentials
- *   POST /api/timetable/sync   - Sync using stored credentials (userId only)
  */
 
 import express, { Request, Response } from "express";
 import { syncTimetable } from "./integration";
-import { upsertTimetableSlots } from "./db/timetableRepository";
+import { upsertTimetableSlots, getTimetableSlots } from "./db/timetableRepository";
 import {
   storeCredentials,
   getCredentials,
   hasCredentials,
   deleteCredentials,
 } from "./db/credentialsRepository";
-import { getTimetableSlots } from "./db/timetableRepository";
+import { prisma } from "./db/prisma";
 import type { ENSAMCredentials } from "./types";
 
 const app = express();
+
+// Required environment variables
 const PORT = process.env.PORT || 3000;
+const HOST = "0.0.0.0";
+const DATABASE_URL = process.env.DATABASE_URL;
+const CREDENTIALS_MASTER_KEY = process.env.CREDENTIALS_MASTER_KEY;
+
+// Validate critical env vars on startup
+function validateEnv(): string[] {
+  const errors: string[] = [];
+  if (!DATABASE_URL) errors.push("DATABASE_URL is required");
+  if (!CREDENTIALS_MASTER_KEY) errors.push("CREDENTIALS_MASTER_KEY is required");
+  if (CREDENTIALS_MASTER_KEY && CREDENTIALS_MASTER_KEY.length < 16) {
+    errors.push("CREDENTIALS_MASTER_KEY must be at least 16 characters");
+  }
+  return errors;
+}
 
 // Middleware
 app.use(express.json());
+
+// Request logging in development
+if (process.env.NODE_ENV !== "production") {
+  app.use((req, _res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+    next();
+  });
+}
 
 interface StoreCredentialsBody {
   userId: string;
@@ -205,9 +225,9 @@ app.get("/api/timetable", async (req: Request, res: Response) => {
   }
 });
 
-// Health check endpoint
+// Health check endpoint (simple - must return 200 for Railway)
 app.get("/health", (_req: Request, res: Response) => {
-  res.json({ status: "ok" });
+  res.status(200).json({ status: "ok" });
 });
 
 // 404 handler
@@ -216,9 +236,55 @@ app.use((_req: Request, res: Response) => {
 });
 
 // Start server
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-  console.log(`Endpoints:`);
-  console.log(`  POST /api/credentials    - Store credentials`);
-  console.log(`  POST /api/timetable/sync - Sync timetable (uses stored credentials)`);
-});
+async function startServer() {
+  // Validate environment (required vars only)
+  const envErrors = validateEnv();
+  if (envErrors.length > 0) {
+    console.error("[FATAL] Missing required environment variables:");
+    envErrors.forEach(err => console.error(`  - ${err}`));
+    console.error("\nPlease set these variables and restart.");
+    process.exit(1);
+  }
+
+  console.log("[Startup] Environment validation passed");
+  console.log(`[Startup] PORT=${PORT}, HOST=${HOST}`);
+  console.log(`[Startup] NODE_ENV=${process.env.NODE_ENV || "development"}`);
+
+  // Start HTTP server immediately (don't block on DB)
+  const server = app.listen(Number(PORT), HOST, () => {
+    console.log(`\n✅ Server running on http://${HOST}:${PORT}`);
+    console.log(`   Health check: http://${HOST}:${PORT}/health`);
+  });
+
+  // Connect to DB in background (don't crash if it fails initially)
+  try {
+    console.log("[Startup] Connecting to database...");
+    await prisma.$connect();
+    await prisma.$queryRaw`SELECT 1`;
+    console.log("[Startup] Database connected successfully");
+  } catch (err) {
+    console.error("[Startup] Database connection failed (will retry on requests):", err);
+    // Don't exit - Railway health check needs server to be up
+  }
+
+  // Graceful shutdown
+  process.on("SIGTERM", () => {
+    console.log("\n[Shutdown] SIGTERM received, closing server...");
+    server.close(async () => {
+      await prisma.$disconnect();
+      console.log("[Shutdown] Server closed");
+      process.exit(0);
+    });
+  });
+
+  process.on("SIGINT", () => {
+    console.log("\n[Shutdown] SIGINT received, closing server...");
+    server.close(async () => {
+      await prisma.$disconnect();
+      console.log("[Shutdown] Server closed");
+      process.exit(0);
+    });
+  });
+}
+
+startServer();
